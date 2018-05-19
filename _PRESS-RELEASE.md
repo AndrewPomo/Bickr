@@ -37,7 +37,7 @@ Once the project moves into development, the press release can be used as a touc
   > Head to Bickr.com and sign up. 
 
 ## Customer Quote ##
-  > I used to be extremely opposed to the legalization of marijuana. However, after a quick chat with someone on Bickr, I learned about all of the benefits legal weed can have not only on your health, but on the economy. Now I smoke a blunt before every meal, and you can't escape a conversation with me without hearing about why weed should legal everywhere. #PeaceAndUnity"
+  > "I used to be extremely opposed to the legalization of marijuana. However, after a quick chat with someone on Bickr, I learned about all of the benefits legal weed can have not only on your health, but on the economy. Now I smoke a blunt before every meal, and you can't escape a conversation with me without hearing about why weed should legal everywhere. #PeaceAndUnity"
 
 ## Closing and Call to Action ##
   > Let's start a (useful) conversation. Head on over to Bickr.com to get started.
