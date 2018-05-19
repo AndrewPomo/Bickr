@@ -20,9 +20,7 @@ Once the project moves into development, the press release can be used as a touc
   > For those who think they are right.
 
 ## Summary ##
-  > Bickr is a social application that matches people with differing views on polarizing social issues. 
-  >
-  > Bickr matches users with opposing viewpoints, and invites them to discuss the topic they disagree on.
+  > Bickr is a social application that matches people with differing views on polarizing social issues. When a match is found, Bickr invites users to discuss the topic they disagree on.
   >
   > At the end of each conversation, both rate the discussion based on how productive it was. Users who consistently participate in productive conversations move up a leaderboard.
 
