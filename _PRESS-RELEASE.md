@@ -19,8 +19,6 @@ Once the project moves into development, the press release can be used as a touc
 ## Bickr ##
   > For those who think they are right.
 
-  > Tackle the most polarizing social issues by discussing them with people you disagree with.
-
 ## Summary ##
   > Bickr is a social application that matches people with differing views on polarizing social issues. 
   >
