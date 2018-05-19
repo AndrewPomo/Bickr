@@ -16,29 +16,32 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
+## Bickr ##
+  > For those who think they are right.
 
-## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > Tackle the most polarizing social issues by discussing them with people you disagree with.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
+  > Bickr is a social application that matches people with differing views on polarizing social issues. 
+  >
+  > Bickr matches users with opposing viewpoints, and invites them to discuss the topic they disagree on.
+  >
+  > At the end of each conversation, both rate the discussion based on how productive it was. Users who consistently participate in productive conversations move up a leaderboard.
 
 ## Problem ##
-  > Describe the problem your product solves.
+  > Discourse amongst people with opposing views on controversial topics can quickly become toxic, hurtful and even dangerous, and often does not produce any kind of useful result.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > By incentivizing users to speak to one another about these issues in a productive manner, Bickr attempts to not just "#StartTheConversation," but to make that conversation safe and beneficial.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > "Bickr is dope." - Andrew
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Head to Bickr.com and sign up. 
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > I used to be extremely opposed to the legalization of marijuana. However, after a quick chat with someone on Bickr, I learned about all of the benefits legal weed can have not only on your health, but on the economy. Now I smoke a blunt before every meal, and you can't escape a conversation with me without hearing about why weed should legal everywhere. #PeaceAndUnity"
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > Let's start a (useful) conversation. Head on over to Bickr.com to get started.
