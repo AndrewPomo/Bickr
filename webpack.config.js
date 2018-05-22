@@ -2,7 +2,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackMd5Hash = require('webpack-md5-hash');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 module.exports = {
   entry: { main: './src/index.js' },
   output: {
@@ -17,11 +16,14 @@ module.exports = {
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2|otf)$/,
+        loader: 'file-loader',
       }
     ]
   },
   plugins: [ 
-    new CleanWebpackPlugin('dist', {} ),
     new HtmlWebpackPlugin({
       inject: false,
       hash: true,

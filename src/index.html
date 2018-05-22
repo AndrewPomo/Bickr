@@ -1,6 +1,21 @@
 <html>
   <head>
   </head>
+  <style type="text/css">
+    @font-face {
+        font-family: "My Custom Font";
+        src: url(./assets/ChaletNewYorkNineteenSeventy.ttf) format("truetype");
+    }
+  </style>
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    var socket = io.connect('http://localhost:3000');
+    socket.on('news', function (data) {
+      console.log(data);
+      socket.emit('my other event', { my: 'data' });
+    });
+  </script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <body>
     <div id="app"></div>
     <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>

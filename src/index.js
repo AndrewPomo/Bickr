@@ -3,43 +3,85 @@ import { render } from 'react-dom';
 import Signup from './components/signup'
 import Questionnaire from './components/questionnaire'
 import Chat from './components/chat'
+import openSocket from 'socket.io-client';
+import styled, { injectGlobal } from 'styled-components';
+import Chalet1970 from './assets/ChaletNewYorkNineteenSeventy.ttf';
+
+injectGlobal`
+  @font-face {
+    font-family: Chalet1970;
+    src: url('${Chalet1970}') format('opentype');
+  }
+`
+
+const Everything = styled.div`
+  font-family: 'Montserrat';
+  color: #424242
+`
 
 class App extends React.Component {
 
   constructor() {
     super();
-    this.state= {
+    this.state = {
       view:'signup',
+      firstname: '',
+      email: '',
+      newMessage: '',
+      messages: [],
     }
+
+    const context = this;
+    const socket = openSocket('http://localhost:3000');
+    socket.on('chat message', function (data) {
+      context.addFetched(data);
+    });
 
     this.handleSignup = this.handleSignup.bind(this);
     this.handleQuestionnaire = this.handleQuestionnaire.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
-    this.fetchMessages = this.fetchMessages.bind(this);
+    this.addFetched = this.addFetched.bind(this);
+    this.handleMessageChange = this.handleMessageChange.bind(this);
+    this.getName = this.getName.bind(this);
+    this.getEmail = this.getEmail.bind(this);
+
   }
 
   renderView() {
     const {view} = this.state;
-    console.log(view)
     if (view === 'signup') {
-      // return <Signup handleClick={(e) => this.changeView(e.target.dataset.view)}/>
-      return <Signup handleSignup={this.handleSignup}/>
+      return <Signup getName={this.getName} getEmail= {this.getEmail} handleSignup={this.handleSignup}/>
     } else if (view === 'questionnaire') {
-      return <Questionnaire handleQuestionnaire={this.handleQuestionnaire}/>
+      return <Questionnaire firstname={this.state.firstname} handleQuestionnaire={this.handleQuestionnaire}/>
     } else if (view === 'chat') {
-      return <Chat send={this.send} fetch={this.fetch}/>
+      return <Chat messages={this.state.messages} sendMessage={this.sendMessage} handleMessageChange={this.handleMessageChange}/>
     } else {
       this.updateViews(view)
       return <Post postId={view} posts={posts}/>
     }
   }
 
-  sendMessage() {
-
+  handleMessageChange(e) {
+    this.setState({newMessage: e.target.value})
   }
 
-  fetchMessages() {
+  sendMessage(e) {
+    e.preventDefault();
+    socket.emit('chat message', this.state.newMessage );
+  }
 
+  getName(e) {
+    this.setState({firstname: e.target.value})
+  }
+
+  getEmail(e) {
+    this.setState({email: e.target.value})
+  }
+
+  addFetched(data) {
+    const newMessages = this.state.messages
+    newMessages.push(data);
+    this.setState({messages: newMessages})
   }
 
   handleSignup(e) {
@@ -50,7 +92,6 @@ class App extends React.Component {
   }
 
   handleQuestionnaire(e) {
-    console.log('starting chat')
     e.preventDefault();
     this.setState({
       view: 'chat'
@@ -77,9 +118,9 @@ class App extends React.Component {
   render() {
     window.scrollTo(0, 0);
     return (
-      <div className="main">
+      <Everything className="main">
         {this.renderView()}
-      </div>
+      </Everything>
     );
   }
 }

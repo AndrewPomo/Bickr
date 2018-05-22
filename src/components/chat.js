@@ -29,12 +29,19 @@ const Button = styled.button`
 `
 
 const Chat = (props) => {
-
+  let key = 0;
+  console.log(props.messages)
   return (
     <ChatBox className="Chatbox">
-      <ul id="messages"></ul>
-      <Form action="">
-        <Input id="m" autocomplete="off" /><Button>Send</Button>
+      <ul id="messages">
+        {props.messages.length > 0 &&
+          props.messages.map((message) =>
+            <li key={++key}>{message}</li>
+          )
+        }
+      </ul>
+      <Form onSubmit={props.sendMessage}>
+        <Input onChange={props.handleMessageChange} id="m" autocomplete="off" reg='message'/><Button>Send</Button>
       </Form>
     </ChatBox>
   );

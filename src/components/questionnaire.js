@@ -10,7 +10,7 @@ const Questionnaire = (props) => {
   console.log(props);
   return (
     <div>
-      <h2>Let's define your views!</h2>
+      <h2>Welcome, {props.firstname}! Let's define your views.</h2>
       <p>Here are a few controversial issues to get you rolling. You can add more later</p>
       <form onSubmit={props.handleQuestionnaire}>
         <table>
