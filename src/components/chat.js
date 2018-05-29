@@ -34,7 +34,6 @@ const List = styled.ul`
 
 const Chat = (props) => {
   let key = 0;
-  console.log(props.messages)
   return (
     <ChatBox className="Chatbox">
       <List id="messages">
@@ -44,8 +43,8 @@ const Chat = (props) => {
           )
         }
       </List>
-      <Form onSubmit={props.sendMessage}>
-        <Input onChange={props.handleMessageChange} id="m" autocomplete="off" reg='message'/><Button>Send</Button>
+      <Form onSubmit={props.handleSubmit}>
+        <Input onChange={props.handleInputChange} id="m" name="newMessage" autocomplete="off" reg='message'/><Button>Send</Button>
       </Form>
     </ChatBox>
   );

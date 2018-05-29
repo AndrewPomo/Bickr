@@ -77,7 +77,7 @@ const Questionnaire = (props) => {
     <Container>
       <h1>Welcome, <Name>{props.name}</Name>!</h1>
       <p>To get started, simply select the correct stance on the following issues</p>
-      <form onSubmit={props.handleQuestionnaire}>
+      <form onSubmit={props.handleSubmit} data-next="chat">
         <Table>
           <tbody>
             <tr>

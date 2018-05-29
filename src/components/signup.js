@@ -98,15 +98,16 @@ const Button = styled.input`
 `
 
 const Signup = (props) => {
+  console.log(props);
   return (
     <Container>
       <Logo src="https://i.imgur.com/fHnlo3t.png" alt="bickr-logo"/>
       <Header>Welcome to <TypeLogo>Bickr</TypeLogo></Header>
       <SubHead>For those who think they are right</SubHead>
       <FormContainer>
-        <Form onSubmit={props.handleSignup}>
-          <TopFormInput onChange={props.getName}type="text" name="firstname" placeholder="First Name"/>
-          <FormInput onChange={props.getEmail}type="email" name="email" placeholder="Email"/>
+        <Form onSubmit={props.handleSubmit} data-next="questionnaire">
+          <TopFormInput onChange={props.handleInputChange} type="text" name="firstname" placeholder="First Name"/>
+          <FormInput onChange={props.handleInputChange} type="email" name="email" placeholder="Email"/>
           <Button type="submit" value="Start Bickering"/>
         </Form>
       </FormContainer>

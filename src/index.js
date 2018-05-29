@@ -37,69 +37,51 @@ class App extends React.Component {
       context.addFetched(data);
     });
 
-    this.handleSignup = this.handleSignup.bind(this);
-    this.handleQuestionnaire = this.handleQuestionnaire.bind(this);
-    this.sendMessage = this.sendMessage.bind(this);
-    this.addFetched = this.addFetched.bind(this);
-    this.handleMessageChange = this.handleMessageChange.bind(this);
-    this.getName = this.getName.bind(this);
-    this.getEmail = this.getEmail.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 
   }
 
   renderView() {
     const {view} = this.state;
     if (view === 'signup') {
-      return <Signup getName={this.getName} getEmail= {this.getEmail} handleSignup={this.handleSignup}/>
+      return <Signup handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit}/>
     } else if (view === 'questionnaire') {
-      return <Questionnaire name={this.state.firstname} handleQuestionnaire={this.handleQuestionnaire}/>
+      return <Questionnaire name={this.state.firstname} handleSubmit={this.handleSubmit}/>
     } else if (view === 'chat') {
-      return <Chat  messages={this.state.messages} sendMessage={this.sendMessage} handleMessageChange={this.handleMessageChange}/>
-    } else {
+      return <Chat messages={this.state.messages} handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange}/>
+    } /*else {
       this.updateViews(view)
       return <Post postId={view} posts={posts}/>
-    }
+    }*/
   }
 
-  handleMessageChange(e) {
-    this.setState({newMessage: e.target.value})
+  handleInputChange(e) {
+    const newState = {}
+    newState[e.target.name] = e.target.value
+    this.setState(newState)
   }
 
-  sendMessage(e) {
+  handleSubmit(e) {
     e.preventDefault();
-    const toSend = {
-      name: this.state.firstname,
-      message: this.state.newMessage
+    if (e.target.dataset.next) {
+      this.setState({
+        view: e.target.dataset.next
+      })
+    } else if (this.state.view === 'chat') {
+      e.preventDefault();
+      const toSend = {
+        name: this.state.firstname,
+        message: this.state.newMessage
+      }
+      socket.emit('chat message', toSend );
     }
-    socket.emit('chat message', toSend );
-  }
-
-  getName(e) {
-    this.setState({firstname: e.target.value})
-  }
-
-  getEmail(e) {
-    this.setState({email: e.target.value})
   }
 
   addFetched(data) {
     const newMessages = this.state.messages
     newMessages.push(data);
     this.setState({messages: newMessages})
-  }
-
-  handleSignup(e) {
-    e.preventDefault();
-    this.setState({
-      view: 'questionnaire'
-    });
-  }
-
-  handleQuestionnaire(e) {
-    e.preventDefault();
-    this.setState({
-      view: 'chat'
-    });
   }
 
   componentDidMount() {
