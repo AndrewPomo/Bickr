@@ -2,174 +2,150 @@ import React from 'react';
 import { render } from 'react-dom';
 import styled from 'styled-components';
 
-const FirstAnswer = styled.td`
+const Container = styled.div`
+  width: 100%;
+  text-align: center;
+`
+
+const Name = styled.span`
+  color: #fd5068
+`
+
+const Form = styled.form`
+  width: 100%;
+`
+
+const FirstChoice = styled.td`
+  top:-10px
+  font-size: 20px;
+  width: 40%;
   text-align: right;
-`;
+`
+
+const SecondChoice = styled.td`
+  top:-10px
+  font-size: 20px;
+  width: 40%;
+  text-align: left;
+`
+const Divider = styled.td`
+  top:-10px
+  width: 5%
+`
+
+const Table = styled.table`
+  border-collapse:separate; 
+  border-spacing:1.2em;
+  text-align: center;
+  margin: 0px auto;
+  width: 500px
+  border: 1px solid #9b9b9b;
+  border-radius: 20px;
+`
+
+const Issue = styled.td`
+  text-align:center;
+  height: 30px;
+`
+
+const IssueHeader = styled.h2`
+  margin-bottom: 0px;
+`
+
+const Button = styled.input`
+  margin: 0 auto;
+  margin-top: 40px;
+  width: 200px;
+  padding 20px;
+  border: 0;
+  outline: 0;
+  font-family: 'Montserrat';
+  font-size: 100%;
+  line-height: 1.15;
+  color: white;
+  background-color: #fd5068;
+  overflow: visible;
+  border-radius: 19px
+  transition: .3s;
+  &:hover{
+    cursor:pointer;
+  }
+`
 
 const Questionnaire = (props) => {
-  console.log(props);
   return (
-    <div>
-      <h2>Welcome, {props.firstname}! Let's define your views.</h2>
-      <p>Here are a few controversial issues to get you rolling. You can add more later</p>
+    <Container>
+      <h1>Welcome, <Name>{props.name}</Name>!</h1>
+      <p>To get started, simply select the correct stance on the following issues</p>
       <form onSubmit={props.handleQuestionnaire}>
-        <table>
+        <Table>
           <tbody>
             <tr>
-              <td colSpan="7"><b>Legalizing Marijuana</b></td>
+              <Issue colSpan="5" ><IssueHeader>Recreational Marijuana</IssueHeader></Issue>
             </tr>
             <tr>
-              <FirstAnswer>
-                It should be illegal.
-              </FirstAnswer>
-              <td>
-                <input type="radio" value="legalize-weed-1" name="legalize-weed"/>
-              </td>
-              <td>
-                <input type="radio" value="legalize-weed-2" name="legalize-weed"/>
-              </td>
-              <td>
-                <input type="radio" value="legalize-weed-3" name="legalize-weed"/>
-              </td>
-              <td>
-                <input type="radio" value="legalize-weed-4" name="legalize-weed"/>
-              </td>
-              <td>
-                <input type="radio" value="legalize-weed-5" name="legalize-weed"/>
-              </td>
-              <td className="lastAnswer">
-                Legalize it!
-              </td>
+              <FirstChoice>
+                <label><input id="1" type="radio" value="legalize-weed-1" name="legalize-weed"/>Should be illegal</label>
+              </FirstChoice>
+              <Divider/>
+              <SecondChoice>
+                <label>Should be legal<input id="2" type="radio" value="legalize-weed-2" name="legalize-weed"/></label>
+              </SecondChoice>
             </tr>
             <tr>
-              <td>
-                <br/>
-              </td>
+              <Issue colSpan="5"><IssueHeader>Gun Control Laws</IssueHeader></Issue>
             </tr>
             <tr>
-              <td colSpan="7"><b>Gun Control Laws</b></td>
+              <FirstChoice>
+                <label><input id="3" type="radio" value="gun-control-1" name="gun-control"/>Fewer Laws</label>
+              </FirstChoice>
+              <Divider/>
+              <SecondChoice>
+                <label>Tougher Laws<input id="4" type="radio" value="gun-control-2" name="gun-control"/></label>
+              </SecondChoice>
             </tr>
             <tr>
-              <FirstAnswer>
-                We need more.
-              </FirstAnswer>
-              <td>
-                <input type="radio" value="gun-control-1" name="gun-control"/>
-              </td>
-              <td>
-                <input type="radio" value="gun-control-2" name="gun-control"/>
-              </td>
-              <td>
-                <input type="radio" value="gun-control-3" name="gun-control"/>
-              </td>
-              <td>
-                <input type="radio" value="gun-control-4" name="gun-control"/>
-              </td>
-              <td>
-                <input type="radio" value="gun-control-5" name="gun-control"/>
-              </td>
-              <td className="lastAnswer">
-                We need fewer.
-              </td>
+              <Issue colSpan="5"><IssueHeader>Assisted Suicide</IssueHeader></Issue>
             </tr>
             <tr>
-              <td>
-                <br/>
-              </td>
+              <FirstChoice>
+                <label><input id="5" type="radio" value="euthanasia-1" name="euthanasia"/>Should be legal</label>
+              </FirstChoice>
+              <Divider/>
+              <SecondChoice>
+                 
+              <label>Should be illegal<input id="6" type="radio" value="euthanasia-2" name="euthanasia"/></label>
+              </SecondChoice>
             </tr>
             <tr>
-              <td colSpan="7"><b>Assisted Suicide</b></td>
+              <Issue colSpan="5"><IssueHeader>Illegal Immigration</IssueHeader></Issue>
             </tr>
             <tr>
-              <FirstAnswer>
-                It's our right.
-              </FirstAnswer>
-              <td>
-                <input type="radio" value="euthanasia-1" name="euthanasia"/>
-              </td>
-              <td>
-                <input type="radio" value="euthanasia-2" name="euthanasia"/>
-              </td>
-              <td>
-                <input type="radio" value="euthanasia-3" name="euthanasia"/>
-              </td>
-              <td>
-                <input type="radio" value="euthanasia-4" name="euthanasia"/>
-              </td>
-              <td>
-                <input type="radio" value="euthanasia-5" name="euthanasia"/>
-              </td>
-              <td className="lastAnswer">
-                It's not right.
-              </td>
+              <FirstChoice>
+                <label><input id="7" type="radio" value="illegal-immigration-1" name="illegal-immigration"/>Tougher Laws</label>
+              </FirstChoice>
+              <Divider/>
+              <SecondChoice>
+                <label>Fewer Laws<input id="8" type="radio" value="illegal-immigration-2" name="illegal-immigration"/></label>
+              </SecondChoice>
             </tr>
             <tr>
-              <td>
-                <br/>
-              </td>
+              <Issue colSpan="5"><IssueHeader>Standardized Testing</IssueHeader></Issue>
             </tr>
             <tr>
-              <td colSpan="7"><b>Illegal Immigration</b></td>
-            </tr>
-            <tr>
-              <FirstAnswer>
-                Let them in!
-              </FirstAnswer>
-              <td>
-                <input type="radio" value="illegal-immigration-1" name="illegal-immigration"/>
-              </td>
-              <td>
-                <input type="radio" value="illegal-immigration-2" name="illegal-immigration"/>
-              </td>
-              <td>
-                <input type="radio" value="illegal-immigration-3" name="illegal-immigration"/>
-              </td>
-              <td>
-                <input type="radio" value="illegal-immigration-4" name="illegal-immigration"/>
-              </td>
-              <td>
-                <input type="radio" value="illegal-immigration-5" name="illegal-immigration"/>
-              </td>
-              <td className="lastAnswer">
-                Keep them out!
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <br/>
-              </td>
-            </tr>
-            <tr>
-              <td colSpan="7"><b>Standardized Testing</b></td>
-            </tr>
-            <tr>
-              <FirstAnswer>
-                Is effective
-              </FirstAnswer>
-              <td>
-                <input type="radio" value="standardized-testing-1" name="standardized-testing"/>
-              </td>
-              <td>
-                <input type="radio" value="standardized-testing-2" name="standardized-testing"/>
-              </td>
-              <td>
-                <input type="radio" value="standardized-testing-3" name="standardized-testing"/>
-              </td>
-              <td>
-                <input type="radio" value="standardized-testing-4" name="standardized-testing"/>
-              </td>
-              <td>
-                <input type="radio" value="standardized-testing-5" name="standardized-testing"/>
-              </td>
-              <td className="lastAnswer">
-                Is not effective
-              </td>
+              <FirstChoice>
+                <label><input id="9" type="radio" value="standardized-testing-1" name="standardized-testing"/>Is effective</label> 
+              </FirstChoice>
+              <Divider/>
+              <SecondChoice>
+                <label>Is not effective<input id="10" type="radio" value="standardized-testing-2" name="standardized-testing"/></label>
+              </SecondChoice>
             </tr>
           </tbody>
-        </table>
-        <input type="submit" value="Submit"/>
+        </Table>
+        <Button type="submit" value="Submit"/>
       </form> 
-    </div>
+    </Container>
   );
 }
 export default Questionnaire;

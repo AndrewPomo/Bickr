@@ -23,9 +23,13 @@ const Input = styled.input`
 
 const Button = styled.button`
   width: 9.5%; 
-  background: rgb(130, 224, 255); 
+  background: #fd5068; 
   border: none;
   padding: 10px;
+`
+
+const List = styled.ul`
+  list-style-type: none;
 `
 
 const Chat = (props) => {
@@ -33,13 +37,13 @@ const Chat = (props) => {
   console.log(props.messages)
   return (
     <ChatBox className="Chatbox">
-      <ul id="messages">
+      <List id="messages">
         {props.messages.length > 0 &&
           props.messages.map((message) =>
-            <li key={++key}>{message}</li>
+            <li key={++key}><b>{message.name}:</b> {message.message}</li>
           )
         }
-      </ul>
+      </List>
       <Form onSubmit={props.sendMessage}>
         <Input onChange={props.handleMessageChange} id="m" autocomplete="off" reg='message'/><Button>Send</Button>
       </Form>

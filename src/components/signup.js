@@ -2,6 +2,11 @@ import React from 'react';
 import { render } from 'react-dom';
 import styled from 'styled-components';
 
+const Container = styled.div`
+  width: 100%;
+  text-align: center;
+`
+
 const TypeLogo = styled.span`
   font-family: Chalet1970;
   color: #fd5068
@@ -25,11 +30,6 @@ const Logo = styled.img`
   width: 100px;
   margin: auto;
   margin-top: 50px;
-`
-
-const Container = styled.div`
-  width: 100%;
-  text-align: center;
 `
 
 const FormContainer = styled.div`

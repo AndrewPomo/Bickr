@@ -25,7 +25,7 @@ class App extends React.Component {
     super();
     this.state = {
       view:'signup',
-      firstname: '',
+      firstname: 'Andrew',
       email: '',
       newMessage: '',
       messages: [],
@@ -52,9 +52,9 @@ class App extends React.Component {
     if (view === 'signup') {
       return <Signup getName={this.getName} getEmail= {this.getEmail} handleSignup={this.handleSignup}/>
     } else if (view === 'questionnaire') {
-      return <Questionnaire firstname={this.state.firstname} handleQuestionnaire={this.handleQuestionnaire}/>
+      return <Questionnaire name={this.state.firstname} handleQuestionnaire={this.handleQuestionnaire}/>
     } else if (view === 'chat') {
-      return <Chat messages={this.state.messages} sendMessage={this.sendMessage} handleMessageChange={this.handleMessageChange}/>
+      return <Chat  messages={this.state.messages} sendMessage={this.sendMessage} handleMessageChange={this.handleMessageChange}/>
     } else {
       this.updateViews(view)
       return <Post postId={view} posts={posts}/>
@@ -67,7 +67,11 @@ class App extends React.Component {
 
   sendMessage(e) {
     e.preventDefault();
-    socket.emit('chat message', this.state.newMessage );
+    const toSend = {
+      name: this.state.firstname,
+      message: this.state.newMessage
+    }
+    socket.emit('chat message', toSend );
   }
 
   getName(e) {
