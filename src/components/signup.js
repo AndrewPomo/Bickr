@@ -108,6 +108,7 @@ const Signup = (props) => {
         <Form onSubmit={props.handleSubmit} data-next="questionnaire">
           <TopFormInput onChange={props.handleInputChange} type="text" name="firstname" placeholder="First Name"/>
           <FormInput onChange={props.handleInputChange} type="email" name="email" placeholder="Email"/>
+          <FormInput onChange={props.handleInputChange} type="password" name="password" placeholder="Create Password"/>
           <Button type="submit" value="Start Bickering"/>
         </Form>
       </FormContainer>
