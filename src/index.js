@@ -1,6 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Signup from './components/signup'
+import Login from './components/login'
 import Questionnaire from './components/questionnaire'
 import Chat from './components/chat'
 import openSocket from 'socket.io-client';
@@ -12,6 +13,16 @@ injectGlobal`
     font-family: Chalet1970;
     src: url('${Chalet1970}') format('opentype');
   }
+
+  .signup-appear , .login-appear {
+    opacity: 0.01;
+  }
+  
+  .signup-appear.signup-appear-active , .login-appear.login-appear-active {
+    opacity: 1;
+    transition: opacity .5s ease-in;
+  }
+  
 `
 
 const Everything = styled.div`
@@ -25,8 +36,9 @@ class App extends React.Component {
     super();
     this.state = {
       view:'signup',
-      firstname: 'Andrew',
+      firstname: '',
       email: '',
+      password: '',
       newMessage: '',
       messages: [],
     }
@@ -45,11 +57,22 @@ class App extends React.Component {
   renderView() {
     const {view} = this.state;
     if (view === 'signup') {
-      return <Signup handleInputChange={this.handleInputChange} handleSubmit={this.handleSubmit}/>
+      return <Signup 
+        handleInputChange={this.handleInputChange} 
+        handleSubmit={this.handleSubmit}/>
+    } else if (view === 'login') {
+      return <Login 
+        handleInputChange={this.handleInputChange} 
+        handleSubmit={this.handleSubmit}/>
     } else if (view === 'questionnaire') {
-      return <Questionnaire name={this.state.firstname} handleSubmit={this.handleSubmit}/>
+      return <Questionnaire 
+        name={this.state.firstname} 
+        handleSubmit={this.handleSubmit}/>
     } else if (view === 'chat') {
-      return <Chat messages={this.state.messages} handleSubmit={this.handleSubmit} handleInputChange={this.handleInputChange}/>
+      return <Chat 
+        messages={this.state.messages} 
+        handleSubmit={this.handleSubmit} 
+        handleInputChange={this.handleInputChange}/>
     } /*else {
       this.updateViews(view)
       return <Post postId={view} posts={posts}/>
@@ -65,9 +88,25 @@ class App extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     if (e.target.dataset.next) {
-      this.setState({
-        view: e.target.dataset.next
-      })
+      
+    }
+    if (this.state.view === 'signup') {
+      e.preventDefault();
+      const toSend = {
+        name: this.state.firstname,
+        email: this.state.email,
+        password: this.state.password
+      }
+      fetch('http://localhost:3000/signups', {
+        method: 'post',
+        body: JSON.stringify(toSend)
+      }).then(response => response.json())
+      .then((response) => {
+        // make user be logged in.
+        this.setState({
+          view: e.target.dataset.next
+        })
+      });
     } else if (this.state.view === 'chat') {
       e.preventDefault();
       const toSend = {

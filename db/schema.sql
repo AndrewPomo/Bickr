@@ -1,11 +1,11 @@
 CREATE TABLE users (
-  ID SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   firstname VARCHAR,
   email VARCHAR,
   password VARCHAR,
   self_rating FLOAT,
   ext_rating FLOAT,
-  rank INT,
+  ranking INT,
   conversation_count INT,
   convinced_ext INT,
   got_convinced INT,
@@ -13,7 +13,7 @@ CREATE TABLE users (
 );
 
 CREATE TABLE topics (
-  ID SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   topic_name VARCHAR,
   topic_question VARCHAR,
   yes_votes INT,
@@ -25,7 +25,7 @@ CREATE TABLE topics (
 );
 
 CREATE TABLE conversations (
-  ID SERIAL PRIMARY KEY,
+  id SERIAL PRIMARY KEY,
   user1 INT,
   user2 TEXT,
   topic INT,
