@@ -44,8 +44,17 @@ app.post('/login',passport.authenticate('local', {
 }));
 
 app.post('/signup', function(req, res) {
-  console.log(req.body)
-  // res.send(req.body);
+  const userInfo = req.body
+  bcrypt.hash(userInfo.password, 10, function(err, hash) {
+    db.none('INSERT INTO users(firstname, email, password) VALUES(${name}, ${email}, ${password})', {
+      name: userInfo.name,
+      email: userInfo.email,
+      password: hash
+    })
+    .then(response => console.log(response))
+    // res.send(req.body);
+  });
+  
   // {
   //   name: 'Andrew',
   //   email: andrewpomo815@gmail.com,
