@@ -97,16 +97,22 @@ class App extends React.Component {
         email: this.state.email,
         password: this.state.password
       }
-      fetch('http://localhost:3000/signups', {
-        method: 'post',
+      console.log(toSend);
+      fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
         body: JSON.stringify(toSend)
-      }).then(response => response.json())
-      .then((response) => {
-        // make user be logged in.
-        this.setState({
-          view: e.target.dataset.next
-        })
-      });
+      })
+      // .then(response => response.json())
+      // .then((response) => {
+      //   // make user be logged in.
+      //   this.setState({
+      //     view: e.target.dataset.next
+      //   })
+      // });
     } else if (this.state.view === 'chat') {
       e.preventDefault();
       const toSend = {

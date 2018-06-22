@@ -1,17 +1,20 @@
 const express = require('express');
 const http = require('http');
 const db = require('../db/index');
-const bluebird = require('bluebird');
 const bcrypt = require('bcrypt');
-const redis = require('redis');
+const bluebird = require('bluebird');
+const bodyParser = require('body-parser')
+// const redis = require('redis');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-bluebird.promisifyAll(redis.RedisClient.prototype);
-bluebird.promisifyAll(redis.Multi.prototype);
-const redisClient = redis.createClient(6379, 'localhost');
+// bluebird.promisifyAll(redis.RedisClient.prototype);
+// bluebird.promisifyAll(redis.Multi.prototype);
+// const redisClient = redis.createClient(6379, 'localhost');
 const app = express();
 const server = http.createServer(app);
 const io = require('socket.io').listen(server);
+
+app.use(bodyParser.json())
 
 passport.use(new LocalStrategy(
   (email, password, cb) => {
@@ -40,9 +43,16 @@ app.post('/login',passport.authenticate('local', {
   failureFlash: true 
 }));
 
-app.post('/newUser', function(req, res) {
+app.post('/signup', function(req, res) {
+  console.log(req.body)
+  // res.send(req.body);
+  // {
+  //   name: 'Andrew',
+  //   email: andrewpomo815@gmail.com,
+  //   password: aFakePassword
+  // }
   // using signup form data
-  // hash user password
+  // encrypt password
   // add user to db.
 });
 
