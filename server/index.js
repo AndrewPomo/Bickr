@@ -51,18 +51,10 @@ app.post('/signup', function(req, res) {
       email: userInfo.email,
       password: hash
     })
-    .then(response => console.log(response))
-    // res.send(req.body);
+    .then(response => {
+      res.send('success');
+    })
   });
-  
-  // {
-  //   name: 'Andrew',
-  //   email: andrewpomo815@gmail.com,
-  //   password: aFakePassword
-  // }
-  // using signup form data
-  // encrypt password
-  // add user to db.
 });
 
 // app.post('/userViews', function(req, res) {
