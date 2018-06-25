@@ -16,22 +16,22 @@ const io = require('socket.io').listen(server);
 
 app.use(bodyParser.json())
 
-passport.use(new LocalStrategy(
-  (email, password, cb) => {
-    db.query('SELECT id, username, password, type FROM users WHERE username=$1', [username], (err, result) => {
-      if (err) { return done(err); }
+// passport.use(new LocalStrategy(
+//   (email, password, cb) => {
+//     db.query('SELECT id, username, password, type FROM users WHERE username=$1', [username], (err, result) => {
+//       if (err) { return done(err); }
       
-      if (!user) {
-        return done(null, false, { message: 'Could\'nt find this email in our records.' });
-      }
+//       if (!user) {
+//         return done(null, false, { message: 'Could\'nt find this email in our records.' });
+//       }
 
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'That\'s not the right password.' });
-      }
-      return done(null, user);
-    })
-  }
-));
+//       if (!user.validPassword(password)) {
+//         return done(null, false, { message: 'That\'s not the right password.' });
+//       }
+//       return done(null, user);
+//     })
+//   }
+// ));
 
 server.listen(3000);
 
@@ -46,8 +46,8 @@ app.post('/login',passport.authenticate('local', {
 app.post('/signup', function(req, res) {
   const userInfo = req.body
   bcrypt.hash(userInfo.password, 10, function(err, hash) {
-    db.none('INSERT INTO users(firstname, email, password) VALUES(${name}, ${email}, ${password})', {
-      name: userInfo.name,
+    db.none('INSERT INTO users(username, email, password) VALUES(${username}, ${email}, ${password})', {
+      username: userInfo.username,
       email: userInfo.email,
       password: hash
     })

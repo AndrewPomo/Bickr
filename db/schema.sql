@@ -1,6 +1,6 @@
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
-  firstname VARCHAR,
+  username VARCHAR,
   email VARCHAR,
   password VARCHAR,
   self_rating FLOAT,

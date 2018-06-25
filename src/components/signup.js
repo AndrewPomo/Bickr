@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import styled from 'styled-components';
 
@@ -118,7 +117,7 @@ const Signup = (props) => {
       >
         <FormContainer>
           <Form onSubmit={props.handleSubmit} data-next="questionnaire">
-            <TopFormInput onChange={props.handleInputChange} type="text" name="firstname" placeholder="First Name"/>
+            <TopFormInput onChange={props.handleInputChange} type="text" name="username" placeholder="Username"/>
             <FormInput onChange={props.handleInputChange} type="email" name="email" placeholder="Email"/>
             <FormInput onChange={props.handleInputChange} type="password" name="password" placeholder="Create Password"/>
             <Button type="submit" value="Start Bickering"/>

@@ -1,12 +1,16 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Signup from './components/signup'
+import config from './aws-exports'
+import Amplify from 'aws-amplify'
+import { Auth } from 'aws-amplify'
 import Login from './components/login'
 import Questionnaire from './components/questionnaire'
 import Chat from './components/chat'
 import openSocket from 'socket.io-client';
 import styled, { injectGlobal } from 'styled-components';
 import Chalet1970 from './assets/ChaletNewYorkNineteenSeventy.ttf';
+Amplify.configure(config)
 
 injectGlobal`
   @font-face {
@@ -36,7 +40,7 @@ class App extends React.Component {
     super();
     this.state = {
       view:'signup',
-      firstname: '',
+      username: '',
       email: '',
       password: '',
       newMessage: '',
@@ -51,8 +55,45 @@ class App extends React.Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.signUp = this.signUp.bind(this);
 
   }
+
+  signUp() {
+    const { username, password, email } = this.state
+    console.log(this.username)
+    Auth.signUp({
+      username,
+      password,
+      attributes: {
+        email
+      }
+    })
+    .then(() => {
+      fetch('http://localhost:3000/signup', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username,
+          password,
+          email
+        })
+      })
+      .then(response => {
+        if (response === "success") {
+          this.setState({
+            view: e.target.dataset.next
+          })
+        }
+      })
+      .catch(err => console.log('error inserting to DB: ', err))
+    })
+    .catch(err => console.log('error signing up: ', err))
+  }
+
 
   renderView() {
     const {view} = this.state;
@@ -66,7 +107,7 @@ class App extends React.Component {
         handleSubmit={this.handleSubmit}/>
     } else if (view === 'questionnaire') {
       return <Questionnaire 
-        name={this.state.firstname} 
+        name={this.state.username} 
         handleSubmit={this.handleSubmit}/>
     } else if (view === 'chat') {
       return <Chat 
@@ -92,31 +133,12 @@ class App extends React.Component {
     }
     if (this.state.view === 'signup') {
       e.preventDefault();
-      const toSend = {
-        name: this.state.firstname,
-        email: this.state.email,
-        password: this.state.password
-      }
-      console.log(toSend);
-      fetch('http://localhost:3000/signup', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(toSend)
-      })
-      // .then(response => response.json())
-      // .then((response) => {
-      //   // make user be logged in.
-      //   this.setState({
-      //     view: e.target.dataset.next
-      //   })
-      // });
+      this.signUp();
+      // make user be logged in.
     } else if (this.state.view === 'chat') {
       e.preventDefault();
       const toSend = {
-        name: this.state.firstname,
+        name: this.state.username,
         message: this.state.newMessage
       }
       socket.emit('chat message', toSend );
@@ -156,3 +178,4 @@ class App extends React.Component {
   }
 }
 render(<App />, document.getElementById('app'));
+// registerServiceWorker()
