@@ -1,4 +1,5 @@
 import React from 'react';
+import { render } from 'react-dom';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import styled from 'styled-components';
 
@@ -105,28 +106,27 @@ const Switch = styled.p`
   text-decoration: underline;
 `
 
-const Signup = (props) => {
-
+const Login = (props) => {
   return (
     <Container>
       <Logo src="https://i.imgur.com/fHnlo3t.png" alt="bickr-logo"/>
       <Header>Welcome to <TypeLogo>Bickr</TypeLogo></Header>
       <SubHead>For those who think they are right</SubHead>
       <ReactCSSTransitionGroup
-        transitionName="signup"
+        transitionName="login"
         transitionAppear={true}
-      >
+        transitionEnterTimeout={100}
+        transitionLeaveTimeout={100}>
         <FormContainer>
-          <Form onSubmit={props.handleSubmit} /*data-next="questionnaire"*/>
-            <TopFormInput onChange={props.handleInputChange} type="text" name="username" placeholder="Username"/>
-            <FormInput onChange={props.handleInputChange} type="email" name="email" placeholder="Email"/>
-            <FormInput onChange={props.handleInputChange} type="password" name="password" placeholder="Create Password"/>
+          <Form onSubmit={props.handleSubmit} data-next="questionnaire">
+            <TopFormInput onChange={props.handleInputChange} type="email" name="email" placeholder="Email"/>
+            <FormInput onChange={props.handleInputChange} type="password" name="password" placeholder="Password"/>
             <Button type="submit" value="Start Bickering"/>
           </Form>
         </FormContainer>
-        <Switch onClick={props.handleSubmit} data-next="login">Already have an account? Click here to log in.</Switch>
+      <Switch onClick={props.handleSubmit} data-next="signup">Don't have an account? Click here to sign up.</Switch>
       </ReactCSSTransitionGroup>
     </Container>
-  )
+  );
 }
-export default Signup;
+export default Login;
