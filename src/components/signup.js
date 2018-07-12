@@ -106,6 +106,7 @@ const Switch = styled.p`
 `
 
 const Signup = (props) => {
+
   return (
     <Container>
       <Logo src="https://i.imgur.com/fHnlo3t.png" alt="bickr-logo"/>
@@ -116,7 +117,7 @@ const Signup = (props) => {
         transitionAppear={true}
       >
         <FormContainer>
-          <Form onSubmit={props.handleSubmit} data-next="questionnaire">
+          <Form onSubmit={props.handleSubmit} /*data-next="questionnaire"*/>
             <TopFormInput onChange={props.handleInputChange} type="text" name="username" placeholder="Username"/>
             <FormInput onChange={props.handleInputChange} type="email" name="email" placeholder="Email"/>
             <FormInput onChange={props.handleInputChange} type="password" name="password" placeholder="Create Password"/>

@@ -1,16 +1,12 @@
 import React from 'react';
 import { render } from 'react-dom';
 import Signup from './components/signup'
-import config from './aws-exports'
-import Amplify from 'aws-amplify'
-import { Auth } from 'aws-amplify'
 import Login from './components/login'
 import Questionnaire from './components/questionnaire'
 import Chat from './components/chat'
 import openSocket from 'socket.io-client';
 import styled, { injectGlobal } from 'styled-components';
 import Chalet1970 from './assets/ChaletNewYorkNineteenSeventy.ttf';
-Amplify.configure(config)
 
 injectGlobal`
   @font-face {
@@ -43,8 +39,11 @@ class App extends React.Component {
       username: '',
       email: '',
       password: '',
+      phone_number: '',
+      authCode: '',
       newMessage: '',
       messages: [],
+      authForm: 'off'
     }
 
     const context = this;
@@ -60,13 +59,13 @@ class App extends React.Component {
   }
 
   signUp() {
-    const { username, password, email } = this.state
-    console.log(this.username)
+    const { username, password, email, phone_number } = this.state
     Auth.signUp({
       username,
       password,
       attributes: {
-        email
+        email,
+        phone_number
       }
     })
     .then(() => {
@@ -85,20 +84,27 @@ class App extends React.Component {
       .then(response => {
         if (response === "success") {
           this.setState({
-            view: e.target.dataset.next
+            view: e.target.dataset.next,
+            authForm: 'on'
           })
         }
       })
-      .catch(err => console.log('error inserting to DB: ', err))
     })
     .catch(err => console.log('error signing up: ', err))
+  }
+
+  confirmSignUp () {
+    Auth.confirmSignUp(this.state.username, this.state.authCode)
+    .then(console.log('successful confirm sign up!'))
+    .catch(err => console.log('error confirming signing up: ', err))
   }
 
 
   renderView() {
     const {view} = this.state;
     if (view === 'signup') {
-      return <Signup 
+      return <Signup
+        authForm = {this.state.authForm}
         handleInputChange={this.handleInputChange} 
         handleSubmit={this.handleSubmit}/>
     } else if (view === 'login') {
@@ -122,7 +128,12 @@ class App extends React.Component {
 
   handleInputChange(e) {
     const newState = {}
-    newState[e.target.name] = e.target.value
+    if(e.target.name === 'phone_number') {
+      let phone_number = '+1' + e.target.value.replace(/[- )(]/g,'');
+      newState[e.target.name] = phone_number;
+    } else {
+      newState[e.target.name] = e.target.value
+    }
     this.setState(newState)
   }
 
