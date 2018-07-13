@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import Signup from './components/signup'
 import Login from './components/login'
+import { BrowserRouter, Route, Link } from 'react-router-dom'
 import Questionnaire from './components/questionnaire'
 import Chat from './components/chat'
 import openSocket from 'socket.io-client';
@@ -39,11 +40,8 @@ class App extends React.Component {
       username: '',
       email: '',
       password: '',
-      phone_number: '',
-      authCode: '',
       newMessage: '',
       messages: [],
-      authForm: 'off'
     }
 
     const context = this;
@@ -60,14 +58,14 @@ class App extends React.Component {
 
   signUp() {
     const { username, password, email, phone_number } = this.state
-    Auth.signUp({
-      username,
-      password,
-      attributes: {
-        email,
-        phone_number
-      }
-    })
+    // Auth.signUp({
+    //   username,
+    //   password,
+    //   attributes: {
+    //     email,
+    //     phone_number
+    //   }
+    // })
     .then(() => {
       fetch('http://localhost:3000/signup', {
         method: 'POST',
@@ -103,10 +101,7 @@ class App extends React.Component {
   renderView() {
     const {view} = this.state;
     if (view === 'signup') {
-      return <Signup
-        authForm = {this.state.authForm}
-        handleInputChange={this.handleInputChange} 
-        handleSubmit={this.handleSubmit}/>
+      return 
     } else if (view === 'login') {
       return <Login 
         handleInputChange={this.handleInputChange} 
@@ -117,6 +112,11 @@ class App extends React.Component {
         handleSubmit={this.handleSubmit}/>
     } else if (view === 'chat') {
       return <Chat 
+        messages={this.state.messages} 
+        handleSubmit={this.handleSubmit} 
+        handleInputChange={this.handleInputChange}/>
+    } else if (view === 'home') {
+      return <Home 
         messages={this.state.messages} 
         handleSubmit={this.handleSubmit} 
         handleInputChange={this.handleInputChange}/>
@@ -182,11 +182,23 @@ class App extends React.Component {
   render() {
     window.scrollTo(0, 0);
     return (
-      <Everything className="main">
-        {this.renderView()}
-      </Everything>
+        <Everything className="main">
+            <Route 
+            exact={true}
+            path="/" 
+            component={Signup} 
+            authForm = {this.state.authForm}
+            handleInputChange={this.handleInputChange} 
+            handleSubmit={this.handleSubmit}/>
+            <Route 
+            path="/login" 
+            component={Login} 
+            authForm = {this.state.authForm}
+            handleInputChange={this.handleInputChange} 
+            handleSubmit={this.handleSubmit}/>
+        </Everything>
     );
   }
 }
-render(<App />, document.getElementById('app'));
+render(<BrowserRouter><App/></BrowserRouter>, document.getElementById('app'));
 // registerServiceWorker()

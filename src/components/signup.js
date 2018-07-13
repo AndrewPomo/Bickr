@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { Link } from 'react-router-dom'
 import styled from 'styled-components';
+
 
 const Container = styled.div`
   width: 100%;
@@ -97,7 +99,7 @@ const Button = styled.input`
   }
 `
 
-const Switch = styled.p`
+const Switch = styled(Link)`
   margin: auto;
   margin-top: 25px;
   margin-bottom: 0px;
@@ -115,6 +117,9 @@ const Signup = (props) => {
       <ReactCSSTransitionGroup
         transitionName="signup"
         transitionAppear={true}
+        transitionAppearTimeout={500}
+        transitionEnterTimeout={500}
+        transitionLeaveTimeout={500}
       >
         <FormContainer>
           <Form onSubmit={props.handleSubmit} /*data-next="questionnaire"*/>
@@ -124,7 +129,7 @@ const Signup = (props) => {
             <Button type="submit" value="Start Bickering"/>
           </Form>
         </FormContainer>
-        <Switch onClick={props.handleSubmit} data-next="login">Already have an account? Click here to log in.</Switch>
+        <Switch className={props.className} to="/login">Already have an account? Click here to log in.</Switch>
       </ReactCSSTransitionGroup>
     </Container>
   )
