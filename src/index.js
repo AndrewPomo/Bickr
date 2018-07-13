@@ -31,6 +31,36 @@ const Everything = styled.div`
   color: #424242
 `
 
+const Container = styled.div`
+  width: 100%;
+  text-align: center;
+`
+
+const TypeLogo = styled.span`
+  font-family: Chalet1970;
+  color: #fd5068
+`
+
+const Header = styled.h1`
+  margin: auto;
+  margin-top: 35px;
+  margin-bottom: 0px;
+`
+
+const SubHead = styled.p`
+  color: #9b9b9b;
+  margin: auto;
+  margin-top: 5px;
+  margin-bottom: 25px;
+`
+
+const Logo = styled.img`
+  display: block;
+  width: 100px;
+  margin: auto;
+  margin-top: 50px;
+`
+
 class App extends React.Component {
 
   constructor() {
@@ -183,19 +213,22 @@ class App extends React.Component {
     window.scrollTo(0, 0);
     return (
         <Everything className="main">
-            <Route 
-            exact={true}
-            path="/" 
-            component={Signup} 
-            authForm = {this.state.authForm}
-            handleInputChange={this.handleInputChange} 
-            handleSubmit={this.handleSubmit}/>
-            <Route 
-            path="/login" 
-            component={Login} 
-            authForm = {this.state.authForm}
-            handleInputChange={this.handleInputChange} 
-            handleSubmit={this.handleSubmit}/>
+          <Container>
+            <Logo src="https://i.imgur.com/fHnlo3t.png" alt="bickr-logo"/>
+            <Header>Welcome to <TypeLogo>Bickr</TypeLogo></Header>
+            <SubHead>For those who think they are right</SubHead>
+              <Route 
+              exact={true}
+              path="/" 
+              component={Login} 
+              handleInputChange={this.handleInputChange} 
+              handleSubmit={this.handleSubmit}/>
+              <Route 
+              path="/signup" 
+              component={Signup} 
+              handleInputChange={this.handleInputChange} 
+              handleSubmit={this.handleSubmit}/>
+          </Container>
         </Everything>
     );
   }

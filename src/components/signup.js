@@ -3,37 +3,6 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Link } from 'react-router-dom'
 import styled from 'styled-components';
 
-
-const Container = styled.div`
-  width: 100%;
-  text-align: center;
-`
-
-const TypeLogo = styled.span`
-  font-family: Chalet1970;
-  color: #fd5068
-`
-
-const Header = styled.h1`
-  margin: auto;
-  margin-top: 35px;
-  margin-bottom: 0px;
-`
-
-const SubHead = styled.p`
-  color: #9b9b9b;
-  margin: auto;
-  margin-top: 5px;
-  margin-bottom: 25px;
-`
-
-const Logo = styled.img`
-  display: block;
-  width: 100px;
-  margin: auto;
-  margin-top: 50px;
-`
-
 const FormContainer = styled.div`
   display: block;
   margin: auto;
@@ -110,28 +79,24 @@ const Switch = styled(Link)`
 const Signup = (props) => {
 
   return (
-    <Container>
-      <Logo src="https://i.imgur.com/fHnlo3t.png" alt="bickr-logo"/>
-      <Header>Welcome to <TypeLogo>Bickr</TypeLogo></Header>
-      <SubHead>For those who think they are right</SubHead>
-      <ReactCSSTransitionGroup
-        transitionName="signup"
-        transitionAppear={true}
-        transitionAppearTimeout={500}
-        transitionEnterTimeout={500}
-        transitionLeaveTimeout={500}
-      >
-        <FormContainer>
-          <Form onSubmit={props.handleSubmit} /*data-next="questionnaire"*/>
-            <TopFormInput onChange={props.handleInputChange} type="text" name="username" placeholder="Username"/>
-            <FormInput onChange={props.handleInputChange} type="email" name="email" placeholder="Email"/>
-            <FormInput onChange={props.handleInputChange} type="password" name="password" placeholder="Create Password"/>
-            <Button type="submit" value="Start Bickering"/>
-          </Form>
-        </FormContainer>
-        <Switch className={props.className} to="/login">Already have an account? Click here to log in.</Switch>
-      </ReactCSSTransitionGroup>
-    </Container>
+    <ReactCSSTransitionGroup
+      transitionName="signup"
+      transitionAppear={true}
+      transitionAppearTimeout={500}
+      transitionEnterTimeout={500}
+      transitionLeaveTimeout={500}
+    >
+      <FormContainer>
+        <Form onSubmit={props.handleSubmit} /*data-next="questionnaire"*/>
+          <TopFormInput onChange={props.handleInputChange} type="text" name="username" placeholder="Username"/>
+          <FormInput onChange={props.handleInputChange} type="email" name="email" placeholder="Email"/>
+          <FormInput onChange={props.handleInputChange} type="password" name="password" placeholder="Create Password"/>
+          <Button type="submit" value="Sign Up"/>
+        </Form>
+      </FormContainer>
+      <br/>
+      <Switch className={props.className} to="/">Already have an account? Click here to log in.</Switch>
+    </ReactCSSTransitionGroup>
   )
 }
 export default Signup;
