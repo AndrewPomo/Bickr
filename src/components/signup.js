@@ -84,18 +84,34 @@ const Signup = (props) => {
       transitionAppear={true}
       transitionAppearTimeout={500}
       transitionEnterTimeout={500}
-      transitionLeaveTimeout={500}
-    >
+      transitionLeaveTimeout={500}>
       <FormContainer>
         <Form onSubmit={props.handleSubmit} /*data-next="questionnaire"*/>
-          <TopFormInput onChange={props.handleInputChange} type="text" name="username" placeholder="Username"/>
-          <FormInput onChange={props.handleInputChange} type="email" name="email" placeholder="Email"/>
-          <FormInput onChange={props.handleInputChange} type="password" name="password" placeholder="Create Password"/>
-          <Button type="submit" value="Sign Up"/>
+          <TopFormInput onChange={props.handleInputChange} 
+            type="text" 
+            name="username" 
+            placeholder="Username"/>
+          <FormInput 
+            onChange={props.handleInputChange} 
+            type="email" 
+            name="email" 
+            placeholder="Email"/>
+          <FormInput 
+            onChange={props.handleInputChange} 
+            type="password" 
+            name="password" 
+            placeholder="Create Password"/>
+          <Button 
+            type="submit" 
+            value="Sign Up"/>
         </Form>
       </FormContainer>
       <br/>
-      <Switch className={props.className} to="/">Already have an account? Click here to log in.</Switch>
+      <Switch 
+        className={props.className} 
+        to="/">
+        Already have an account? Click here to log in.
+      </Switch>
     </ReactCSSTransitionGroup>
   )
 }

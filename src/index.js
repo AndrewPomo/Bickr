@@ -212,24 +212,24 @@ class App extends React.Component {
   render() {
     window.scrollTo(0, 0);
     return (
-        <Everything className="main">
-          <Container>
-            <Logo src="https://i.imgur.com/fHnlo3t.png" alt="bickr-logo"/>
-            <Header>Welcome to <TypeLogo>Bickr</TypeLogo></Header>
-            <SubHead>For those who think they are right</SubHead>
-              <Route 
-              exact={true}
-              path="/" 
-              component={Login} 
-              handleInputChange={this.handleInputChange} 
-              handleSubmit={this.handleSubmit}/>
-              <Route 
-              path="/signup" 
-              component={Signup} 
-              handleInputChange={this.handleInputChange} 
-              handleSubmit={this.handleSubmit}/>
-          </Container>
-        </Everything>
+      <Everything className="main">
+        <Container>
+          <Logo src="https://i.imgur.com/fHnlo3t.png" alt="bickr-logo"/>
+          <Header>Welcome to <TypeLogo>Bickr</TypeLogo></Header>
+          <SubHead>For those who think they are right</SubHead>
+            <Route 
+            exact={true}
+            path="/" 
+            component={Login} 
+            handleInputChange={this.handleInputChange} 
+            handleSubmit={this.handleSubmit}/>
+            <Route 
+            path="/signup" 
+            component={Signup} 
+            handleInputChange={this.handleInputChange} 
+            handleSubmit={this.handleSubmit}/>
+        </Container>
+      </Everything>
     );
   }
 }
