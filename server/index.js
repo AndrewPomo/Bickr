@@ -4,6 +4,7 @@ const db = require('../db/index');
 const bcrypt = require('bcrypt');
 const bluebird = require('bluebird');
 const bodyParser = require('body-parser')
+const path = require('path')
 // const redis = require('redis');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -14,34 +15,62 @@ const app = express();
 const server = http.createServer(app);
 const io = require('socket.io').listen(server);
 
+passport.use(new LocalStrategy(
+  function(email, password, cb) {
+    db.query('SELECT id, username, password, type FROM users WHERE username=$1', [username], (err, result) => {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Could\'nt find this email in our records.' });
+      }
+
+      if (!user.validPassword(password)) {
+        return done(null, false, { message: 'That\'s not the right password.' });
+      }
+      return done(null, user);
+    })
+  }
+));
+
+passport.serializeUser(function(user, cb) {
+  cb(null, user.id);
+});
+
+passport.deserializeUser(function(id, cb) {
+  db.query('SELECT * FROM users WHERE id=$1', [id], (err, result) => {
+    if (err) { return cb(err); }
+    cb(null, user);
+  });
+});
+
 app.use(bodyParser.json())
-
-// passport.use(new LocalStrategy(
-//   (email, password, cb) => {
-//     db.query('SELECT id, username, password, type FROM users WHERE username=$1', [username], (err, result) => {
-//       if (err) { return done(err); }
-      
-//       if (!user) {
-//         return done(null, false, { message: 'Could\'nt find this email in our records.' });
-//       }
-
-//       if (!user.validPassword(password)) {
-//         return done(null, false, { message: 'That\'s not the right password.' });
-//       }
-//       return done(null, user);
-//     })
-//   }
-// ));
 
 server.listen(3000);
 
 app.use(express.static(__dirname + '/../dist'));
 
-app.post('/login',passport.authenticate('local', { 
-  successRedirect: '/',
-  failureRedirect: '/login',
-  failureFlash: true 
-}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(__dirname, '/../dist/index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+    console.log('hello');
+  })
+})
+
+app.post('/login', 
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+app.get('/logout',
+  function(req, res){
+    req.logout();
+    res.redirect('/');
+  });
 
 app.post('/signup', function(req, res) {
   const userInfo = req.body
@@ -56,12 +85,6 @@ app.post('/signup', function(req, res) {
     })
   });
 });
-
-// app.post('/userViews', function(req, res) {
-//   // using signup form data
-//   // hash user password
-//   // add user to db.
-// });
 
 app.get('/newConvo', function(req, res) {
   // res.send();
