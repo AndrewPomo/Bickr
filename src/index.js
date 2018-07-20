@@ -61,13 +61,6 @@ const Logo = styled.img`
   margin-top: 50px;
 `
 
-const routes = [
-  {
-    path:'/signup',
-    component: Signup,
-  }
-]
-
 class App extends React.Component {
 
   constructor() {
@@ -119,43 +112,7 @@ class App extends React.Component {
     .catch(err => console.log('error signing up: ', err))
   }
 
-  // confirmSignUp () {
-  //   Auth.confirmSignUp(this.state.username, this.state.authCode)
-  //   .then(console.log('successful confirm sign up!'))
-  //   .catch(err => console.log('error confirming signing up: ', err))
-  // }
-
-
-  renderView() {
-    const {view} = this.state;
-  //   if (view === 'signup') {
-  //     return 
-  //   } else if (view === 'login') {
-  //     return <Login 
-  //       handleInputChange={this.handleInputChange} 
-  //       handleSubmit={this.handleSubmit}/>
-  //   } else if (view === 'questionnaire') {
-  //     return <Questionnaire 
-  //       name={this.state.username} 
-  //       handleSubmit={this.handleSubmit}/>
-  //   } else if (view === 'chat') {
-  //     return <Chat 
-  //       messages={this.state.messages} 
-  //       handleSubmit={this.handleSubmit} 
-  //       handleInputChange={this.handleInputChange}/>
-  //   } else if (view === 'home') {
-  //     return <Home 
-  //       messages={this.state.messages} 
-  //       handleSubmit={this.handleSubmit} 
-  //       handleInputChange={this.handleInputChange}/>
-  //   } /*else {
-  //     this.updateViews(view)
-  //     return <Post postId={view} posts={posts}/>
-  //   }*/
-  }
-
   handleInputChange(e) {
-    console.log('typed');
     const newState = {}
     if(e.target.name === 'phone_number') {
       let phone_number = '+1' + e.target.value.replace(/[- )(]/g,'');
@@ -208,21 +165,40 @@ class App extends React.Component {
   }
 
   render() {
-    const context = this;
-    console.log('sup')
+    const routes = [
+      {
+        path:'/signup',
+        component: Signup,
+        handleInputChange: this.handleInputChange,
+        handleSubmit: this.handleSubmit,
+      },
+      {
+        path:'/',
+        exact: true,
+        component: Login,
+        handleInputChange: this.handleInputChange,
+        handleSubmit: this.handleSubmit,
+      }
+    ]
     window.scrollTo(0, 0);
+    let key = 0;
     return (
       <Everything className="main">
         <Container>
           <Logo src="https://i.imgur.com/fHnlo3t.png" alt="bickr-logo"/>
           <Header>Welcome to <TypeLogo>Bickr</TypeLogo></Header>
           <SubHead>For those who think they are right</SubHead>
-            {routes.map(({ path, component: C, handleInputChange, handleSubmit}) => (
+            {
+              routes.map(({ path, exact, component: C, handleInputChange, handleSubmit}) => (
               <Route
+                key={key++}
                 path={path}
-                render={ (props) => <C {...props}/>}
-                handleInputChange={context.handleInputChange} 
-                handleSubmit={context.handleSubmit}/>
+                exact={exact}
+                render={ (props) => <C {...props}
+                  handleSubmit={handleSubmit}
+                  handleInputChange={handleInputChange}
+                  />}
+              />
             ))}
             {/* <Route 
             exact={true}

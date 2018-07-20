@@ -77,7 +77,6 @@ const Switch = styled(Link)`
 `
 
 const Signup = (props) => {
-  console.log(props);
   return (
     <ReactCSSTransitionGroup
       transitionName="signup"
